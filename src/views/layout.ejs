@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta name="description" content="SCQ Notificación de alertas e incidencias al Ayuntamiento." />
+
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151203400-1"></script>
+		<script>
+
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'UA-151203400-1');
+
+		</script>
+
+		<title><%=titulo%></title>
+
+		<link href="css/plantilla.css" rel="stylesheet" />
+
+		<%-stylesheets%>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+
+	</head>
+
+	<body class="sb-nav-fixed">
+
+		<%- include menusuperior %>
+
+		<div id="layoutSidenav">
+
+			<div id="layoutSidenav_nav">
+
+				<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+
+					<%- include menuizdo %>
+
+				</nav>
+
+			</div>
+
+			<div id="layoutSidenav_content">
+
+				<main>
+
+					<div class="container-fluid">
+
+						<%-body %>
+
+					</div>
+
+				</main>
+
+				<%- include pie %>
+
+			</div>
+
+			<div id="modal" class="modal" tabindex="-1" role="dialog">
+
+				<div class="modal-dialog" role="document">
+
+					<div class="modal-content">
+
+						<div class="modal-header">
+
+							<h5 class="modal-title">Accion requerida</h5>
+
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+								<span aria-hidden="true">&times;</span>
+
+							</button>
+
+						</div>
+
+						<div class="modal-body">
+
+							<p>Esta intentando entrar a una zona restringida.</p>
+							<p>Por favor introduzca la contraseña de administracion.</p>
+							<p>No es abc123.</p>
+							<label>Contraseña de administracion: </label>
+							<input type="password" id="contraseña">
+
+						</div>
+
+						<div class="modal-footer">
+
+							<button id="comprobarContraseña" type="button" class="btn btn-danger">Comprobar contraseña</button>
+							<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/collapse.js"></script>
+
+		<%-scripts%>
+
+	</body>
+
+</html>

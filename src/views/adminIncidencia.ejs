@@ -1,0 +1,89 @@
+<% layout('layout') -%>
+<% script('js/incidencia.js') -%>
+
+<div class="container-fluid">
+
+	<div class="row">
+
+		<div class="col-12 mt-4">
+
+			<div class="card text-center">
+
+				<div class="card-header">
+
+					<i class="fas fa-info-circle fa-2x"></i><strong> Incidencias públicas</strong>
+
+				</div>
+
+				<div class="card-body">
+
+					<h5 class="card-title">Últimas incidencias registradas</h5>
+
+					<% if (incidencias.length != 0) { %>
+
+						<% if (cliente && cliente.solucionar) { %>
+
+							<table class="table table-striped text-center">
+
+								<thead>
+
+									<tr>
+
+										<th> Fecha </th>
+										<th> Imagen </th>
+										<th> Coordenadas </th>
+										<th> INE </th>
+										<th> Texto </th>
+										<th> Resuelta </th>
+										<th> Solucion </th>
+										<th colspan="2"> Opciones </th>
+
+									</tr>
+
+								</thead>
+
+								<tbody>
+
+									<% for (incidencia in incidencias) { %>
+
+										<tr data-id=<%- incidencias[incidencia]._id %>>
+
+											<td><%- incidencias[incidencia].fecha %></td>
+											<td><img width="300" height="200" src=<%- 'img/' + incidencias[incidencia].foto %>></td>
+											<td><a href="/mapa?id=<%- incidencias[incidencia]._id %>"> Enlace al mapa </a></td>
+											<td><%- incidencias[incidencia].ine %></td>
+											<td><%- incidencias[incidencia].texto_incidencia %></td>
+											<td><%- incidencias[incidencia].resuelta %></td>
+											<td><%- incidencias[incidencia].texto_solucion %></td>
+											<td><a id="botonEditar" href="/editarIncidencia?id=<%- incidencias[incidencia]._id %>"</a>Editar</a></td>
+											<td><a id="botonBorrarIncidencia" href="">Borrar</a></td>
+
+										</tr>
+
+									<% } %>
+
+								</tbody>
+
+							</table>
+
+						<% } else { %>
+
+							<p> No tienes permisos </p>
+
+						<% } %>
+
+					<% } else { %>
+
+						<p>No hay ninguna incidencia</p>
+
+					<% } %>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

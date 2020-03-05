@@ -1,0 +1,78 @@
+<% layout('layout') -%>
+<% script('js/editarAyuntamiento.js') -%>
+
+<div class="container-fluid">
+
+	<div class="row">
+
+		<div class="col-12 mt-4">
+
+			<div class="card">
+
+				<div class="card-header text-center">
+
+					<i class="fas fa-info fa-2x"></i> Información del Proyecto
+
+				</div>
+
+				<div class="card-body">
+
+					<h5 class="card-title text-center"> Edicion de ayuntamiento </h5>
+
+					<form id="editarAyuntamiento">
+
+						<div class="form-row mb-4">
+
+							<div class="col">
+
+								<input disabled type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" value="<%- ayuntamiento.nombre %>" required>
+
+							</div>
+
+						</div>
+
+						<div class="form-row mb-4">
+
+							<div class="col">
+
+								<input disabled type="text" id="ine" name="ine" class="form-control" placeholder="INE" value="<%- ayuntamiento.ine %>" required>
+
+							</div>
+
+						</div>
+
+						<div class="form-row mb-4">
+
+							<div class="col">
+
+								<input disabled type="text" id="codigoAgente" name="codigoAgente" class="form-control" placeholder="codigoAgente" value="<%- ayuntamiento.codigoAgente %>" required>
+
+							</div>
+
+						</div>
+
+						<div class="form-row mb-4">
+
+							<div class="col">
+
+								<input type="email" id="email" name="email" class="form-control" placeholder="Email" maxlength="150" value="<%- ayuntamiento.email %>">
+
+							</div>
+
+						</div>
+
+						<input id="id" type="hidden" name="id" value="<%- ayuntamiento._id %>">
+
+						<button class="btn btn-info my-4 btn-block" type="submit">Actualizar ayuntamiento</button>
+
+					</form>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

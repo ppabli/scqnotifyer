@@ -1,0 +1,41 @@
+<% layout('layout') -%>
+<% script('js/meteo.js') -%>
+
+<div class="container-fluid">
+
+	<div class="row">
+
+		<div class="col-12 mt-4">
+
+			<div class="card">
+
+				<div class="card-header text-center">
+
+					<i class="fas fa-cloud-sun fa-2x"></i> Meteorología
+
+				</div>
+
+				<div class="card-body">
+
+					<h5 class="card-title text-center">Consulta de predicciones meteorológicas</h5>
+
+					<fieldset>
+
+						<form id="formularioMeteo">
+
+							<input id="ciudad" name="ciudad" type="text" class="ghost-input" placeholder="Introduzca una ciudad" required>
+							<input type="submit" class="ghost-button" value="Obtener Méteo">
+
+						</form>
+
+					</fieldset>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

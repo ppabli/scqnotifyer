@@ -1,0 +1,56 @@
+<% layout('layout') -%>
+
+<div class="container-fluid">
+
+	<div class="row">
+
+		<div class="col-12 mt-4">
+
+			<div class="card text-center">
+
+				<div class="card-header">
+
+					<i class="fas fa-sign-in-alt fa-2x"></i><strong> Acceso a SCQ Notifyer</strong>
+
+				</div>
+
+				<div class="card-body">
+
+					<h5 class="card-title">Autenticación con Telegram <i class="fab fa-telegram fa-2x"></i></h5>
+
+					<p class="card-text">La autorización de acceso a esta web es a través de <b><a href="https://www.telegram.org/" target="_blank">Telegram</a></b>.</p>
+					<p class="card-text">Por lo tanto necesitará tener instalado Telegram en su dispositivo móvil, PC, tablet, etc..</p>
+					<p class="card-text">para poder acceder a esta web.</p>
+					<p class="card-text">
+
+						<script async src="https://telegram.org/js/telegram-widget.js?7" data-telegram-login="SCQNotifyer123BOT" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+
+						<script type="text/javascript">
+
+							function onTelegramAuth(user) {
+
+								$.post('/grabarSesion', user, (resultado) => {
+
+									if (resultado.status == 'ok') {
+
+										location.reload();
+
+									}
+
+								});
+
+							}
+
+						</script>
+
+					</p>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

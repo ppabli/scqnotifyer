@@ -1,0 +1,99 @@
+<% layout('layout') -%>
+<% script('js/ayuntamiento.js') -%>
+
+<div class="container-fluid">
+
+	<div class="row">
+
+		<div class="col-12 mt-4">
+
+			<div class="card text-center">
+
+				<div class="card-header">
+
+					<i class="fas fa-info-circle fa-2x"></i><strong> Ayuntamientos </strong>
+
+				</div>
+
+				<div class="card-body">
+
+					<h5 class="card-title"> Ayuntamientos registrados </h5>
+
+					<% if (ayuntamientos.length != 0) { %>
+
+						<% if (cliente && cliente.solucionar) { %>
+
+							<table class="table table-striped text-center">
+
+								<thead>
+
+									<tr>
+
+										<th> Nombre </th>
+										<th> Email </th>
+										<th> INE </th>
+										<th> Codigo agente </th>
+										<th colspan="2"> Opciones </th>
+
+									</tr>
+
+								</thead>
+
+								<tbody>
+
+									<% for (ayuntamiento in ayuntamientos) { %>
+
+										<tr data-id=<%- ayuntamientos[ayuntamiento]._id %>>
+
+											<td><%- ayuntamientos[ayuntamiento].nombre %></td>
+											<td><%- ayuntamientos[ayuntamiento].email %></td>
+											<td><%- ayuntamientos[ayuntamiento].ine %></td>
+											<td><%- ayuntamientos[ayuntamiento].codigoAgente %></td>
+											<td><a id="botonEditar" href="/editarAyuntamiento?id=<%- ayuntamientos[ayuntamiento]._id %>"</a>Editar</a></td>
+											<td><a id="botonBorrarAyuntamiento" href="">Borrar</a></td>
+
+										</tr>
+
+									<% } %>
+
+								</tbody>
+
+							</table>
+
+						<% } else { %>
+
+							<p> No tienes permisos </p>
+
+						<% } %>
+
+					<% } else { %>
+
+						<p>No hay ningun ayuntamiento</p>
+
+					<% } %>
+
+				</div>
+
+				<div class="card-footer">
+
+					<button id="añadirAyuntamiento" class="btn btn-primary btn-rounded">
+
+						<a><i class="fas fa-university"></i> Añadir ayuntamiento </a>
+	
+					</button>
+
+					<button id="cancelarAdicion" class="btn btn-danger btn-rounded">
+
+						<a><i class="fas fa-user-slash"></i> Cancelar edicion </a>
+
+					</button>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

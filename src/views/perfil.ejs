@@ -1,0 +1,85 @@
+<% layout('layout') -%>
+<% script('js/perfil.js') -%>
+<% stylesheet('css/perfil.css') -%>
+
+<div class="container-fluid">
+
+	<div class="row">
+
+		<div class="col-12 mt-4">
+
+			<div class="card">
+
+				<div class="card-header text-center">
+
+					<i class="fas fa-info fa-2x"></i> Mi Perfil
+
+				</div>
+
+				<div class="card-body">
+
+					<h5 class="card-title text-center">Mi Perfil</h5>
+
+					<% for (dato in cliente) { %>
+
+						<label><%- dato  + ' - '%></label>
+
+						<% if (dato == 'nick') { %>
+
+							@<label class="editable"><%- cliente[dato] %></label>
+
+						<% } else if (dato == 'incidencias') { %>
+
+							<label><%- cliente[dato].length %></label>
+
+						<% } else { %>
+
+							<% if (dato == 'nombre' || dato == 'apellidos' || dato == 'email' || dato == 'notificar') { %>
+
+								<label class="editable" id = '<%- dato  %>'><%- cliente[dato] %></label>
+
+							<% } else { %>
+
+								<label><%- cliente[dato] %></label>
+
+							<% } %>
+
+						<% } %>
+
+						<br>
+
+					<% } %>
+
+					<button id="editarPerfil" class="btn btn-primary btn-rounded">
+
+						<a><i class="fas fa-user-edit"></i> Editar perfil</a>
+
+					</button>
+
+					<button id="borrarPerfil" class="btn btn-danger btn-rounded">
+
+						<a><i class="fas fa-user-slash"></i> Borrar perfil</a>
+	
+					</button>
+
+					<button id="actualizarPerfil" class="btn btn-primary btn-rounded">
+
+						<a><i class="fas fa-user-edit"></i> Actualizar perfil</a>
+
+					</button>
+
+					<button id="cancelarEdicion" class="btn btn-danger btn-rounded">
+
+						<a><i class="fas fa-user-slash"></i> Cancelar edicion</a>
+	
+					</button>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
