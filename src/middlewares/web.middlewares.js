@@ -31,7 +31,7 @@ rutasPrivadas = (req, res, next) => {
 
 rutasAgente = (req, res, next) => {
 
-	if (cliente.codigosIne.length == 0 && !cliente.solucionar) {
+	if (!cliente.agente && !cliente.solucionar) {
 
 		res.status(403).send('<h1 style="font-size: 18em; text-align: center" > No tienes permisos!! </h1><p style="text-align: center"><a href="/login">a18pablolc.ddns.net/login</a></p>');
 

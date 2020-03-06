@@ -39,34 +39,42 @@ exports.info = (req, res) => {
 exports.incidencias = (req, res) => {
 
 	usuario.find({}, (error, resultados) => {
+		
+		if (error) {
 
-		let datos = [];
+			res.status(200).send({status: 'ok', mensaje: 'Error listando incidencias'});
 
-		for (resultado in resultados) {
+		} else {
 
-			for (incidencia in resultados[resultado].incidencias) {
+			let datos = [];
 
-				if (datos.length == 0) {
+			for (resultado in resultados) {
 
-					datos.push(resultados[resultado].incidencias[incidencia]);
+				for (incidencia in resultados[resultado].incidencias) {
 
-				} else {
+					if (datos.length == 0) {
 
-					for (let i = 0; i < datos.length; i++) {
+						datos.push(resultados[resultado].incidencias[incidencia]);
 
-						if ((datos[i].fecha - resultados[resultado].incidencias[incidencia].fecha) < 0) {
+					} else {
 
-							datos.splice(i, 0, resultados[resultado].incidencias[incidencia]);
+						for (let i = 0; i < datos.length; i++) {
 
-							break;
+							if ((datos[i].fecha - resultados[resultado].incidencias[incidencia].fecha) < 0) {
 
-						}
+								datos.splice(i, 0, resultados[resultado].incidencias[incidencia]);
 
-						if (i == datos.length - 1) {
+								break;
 
-							datos.push(resultados[resultado].incidencias[incidencia]);
+							}
 
-							break;
+							if (i == datos.length - 1) {
+
+								datos.push(resultados[resultado].incidencias[incidencia]);
+
+								break;
+
+							}
 
 						}
 
@@ -76,9 +84,9 @@ exports.incidencias = (req, res) => {
 
 			}
 
-		}
+			res.render('incidencias', {titulo: "SCQN - Incidencias", incidencias: datos.slice(0, 10)});
 
-		res.render('incidencias', {titulo: "SCQN - Incidencias", incidencias: datos.slice(0, 10)});
+		}
 
 	});
 
@@ -227,7 +235,7 @@ exports.grabarSesion = (req, res) => {
 						req.session.cliente.nick = elUsuario.nick;
 						req.session.cliente.email = elUsuario.email;
 						req.session.cliente.solucionar = false;
-						req.session.cliente.codigosIne = [];
+						req.session.cliente.agente = false;
 						req.session.cliente.notificar = elUsuario.notificar;
 
 						res.status(200).json({status: 'ok', mensaje: 'Usuario creado correctamente'});
@@ -246,10 +254,33 @@ exports.grabarSesion = (req, res) => {
 				req.session.cliente.nick = elUsuario.nick;
 				req.session.cliente.email = elUsuario.email;
 				req.session.cliente.solucionar = false;
-				req.session.cliente.codigosIne = elUsuario.codigosIne;
 				req.session.cliente.notificar = elUsuario.notificar;
+				req.session.cliente.agente = false;
 
-				res.status(200).json({status: 'ok'});
+				ayuntamiento.find({}, (error, resultados2) => {
+
+					if (error) {
+
+						res.status(200).json({status: 'error', mensaje: 'Error grabando usuario'});
+
+					} else {
+
+						for (resultado2 in resultados2) {
+
+							if (resultados2[resultado2].agentes.indexOf(elUsuario.telegram) != -1) {
+
+								req.session.cliente.agente = true;
+								break;
+
+							}
+
+						}
+
+						res.status(200).json({status: 'ok'});
+
+					}
+
+				});
 
 			}
 
@@ -528,7 +559,7 @@ exports.actualizarIncidencia = (req, res) => {
 
 				for (incidencia in resultado[valor].incidencias) {
 
-					if (resultado[valor].incidencias[incidencia]._id == req.body.id && (resultado[valor].telegram == cliente.id || cliente.solucionar || cliente.codigosIne.indexOf(resultado[valor].incidencias[incidencia].ine) != -1)) {
+					if (resultado[valor].incidencias[incidencia]._id == req.body.id) {
 
 						resultado[valor].incidencias[incidencia].texto_incidencia = escapeHtml(req.body.texto_incidencia.substring(0, 300));
 						resultado[valor].incidencias[incidencia].texto_solucion = escapeHtml(req.body.texto_solucion.substring(0, 300));
@@ -605,7 +636,7 @@ exports.actualizarIncidencia = (req, res) => {
 
 exports.agenteIncidencias = (req, res) => {
 
-	usuario.find({}, (error, resultados) => {
+	usuario.find({}, async (error, resultados) => {
 
 		if (error) {
 
@@ -619,9 +650,19 @@ exports.agenteIncidencias = (req, res) => {
 
 				for (incidencia in resultados[resultado].incidencias) {
 
-					if (cliente.codigosIne.indexOf(resultados[resultado].incidencias[incidencia].ine) != -1) {
+					try {
 
-						datos.push(resultados[resultado].incidencias[incidencia]);
+						let resultados2 = await ayuntamiento.find({'ine': resultados[resultado].incidencias[incidencia].ine});
+
+						if (resultados2[0].agentes.indexOf(cliente.id) != -1) {
+
+							datos.push(resultados[resultado].incidencias[incidencia]);
+
+						}
+
+					} catch {
+
+						res.status(200).json({status: 'error', mensaje: 'Error agente'});
 
 					}
 

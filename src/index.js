@@ -484,7 +484,6 @@ bot.command('confirm', (msg) => {
 
 										} else {
 
-											resultado[0].codigosIne.push(resultado[0].registro_ine);
 											resultado[0].estadoTelegram = '';
 											resultado[0].registro_ine = '';
 											resultado[0].registro_codigo = '';
